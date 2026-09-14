@@ -1,6 +1,5 @@
-import React from "react";
 import { Sidebar } from "./components/sidebar/bar/sidebar";
-
+import "./App.scss";
 const App = () => {
   return (
     <div>
