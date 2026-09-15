@@ -1,6 +1,4 @@
 import "./hero.scss";
-const hero = () => {
-  return <div>hero</div>;
+export const Hero = () => {
+  return <div>Hello</div>;
 };
-
-export default hero;
