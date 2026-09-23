@@ -1,15 +1,22 @@
 import "./sidebar.scss";
-import { Search } from "lucide-react";
-import { PanelLeftClose, PanelLeft } from "lucide-react";
-import { Plus } from "lucide-react";
-import { TicTacToe } from "lucide-react";
-import { Globe } from "lucide-react";
-import { BookCopy } from "lucide-react";
-import { FolderOpen } from "lucide-react";
-import { RotateCcw } from "lucide-react";
+import {
+  Search,
+  PanelLeftClose,
+  PanelLeft,
+  Plus,
+  TicTacToe,
+  Globe,
+  BookCopy,
+  FolderOpen,
+  RotateCcw,
+} from "lucide-react";
+
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
+  const nav = useNavigate();
+
   const [isOpen, setIsOpen] = useState(true);
 
   const tooglesidebar = () => {
@@ -20,7 +27,9 @@ export const Sidebar = () => {
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <div className="sidebar-heading">
         <div className="sidebar-title">
-          <span className="sidebar-cortex">Cortex</span>
+          <span className="sidebar-cortex" onClick={() => nav("/home")}>
+            Cortex
+          </span>
         </div>
 
         <div className="sidebar-icon" onClick={tooglesidebar}>
@@ -30,7 +39,7 @@ export const Sidebar = () => {
         </div>
       </div>
 
-      <div className="sidebar-new">
+      <div className="sidebar-new" onClick={() => nav("/")}>
         <span className="sidebar-square">
           <Plus />
           New chat
@@ -50,20 +59,22 @@ export const Sidebar = () => {
       </div>
 
       <div className="sidebar-feature">
-        <span className="sidebar-featureitem">
+        <span className="sidebar-featureitem" onClick={() => nav("/explore")}>
           <Globe size={16} />
           <span>Explore</span>
         </span>
-        <span className="sidebar-featureitem">
-          <BookCopy size={16} />
 
-          <span> library</span>
+        <span className="sidebar-featureitem" onClick={() => nav("/library")}>
+          <BookCopy size={16} />
+          <span>Library</span>
         </span>
-        <span className="sidebar-featureitem">
+
+        <span className="sidebar-featureitem" onClick={() => nav("/files")}>
           <FolderOpen size={16} />
-          <span>files</span>
+          <span>Files</span>
         </span>
-        <span className="sidebar-featureitem">
+
+        <span className="sidebar-featureitem" onClick={() => nav("/history")}>
           <RotateCcw size={16} />
           <span>History</span>
         </span>

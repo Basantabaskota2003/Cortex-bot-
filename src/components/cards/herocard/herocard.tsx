@@ -1,4 +1,3 @@
-import { ChartPie, icons } from "lucide-react";
 import "./herocard.scss";
 export const Herocard = ({
   data,

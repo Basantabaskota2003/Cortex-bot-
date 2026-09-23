@@ -1,5 +1,6 @@
-import { Login } from "../../login/login";
+import { useState } from "react";
 import { Herocard } from "../cards/herocard/herocard";
+import { db } from "../../firebase/firebase";
 import "./hero.scss";
 import {
   Atom,
@@ -10,25 +11,50 @@ import {
   Lightbulb,
   ChartPie,
   Flashlight,
+  Send,
 } from "lucide-react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 export const Hero = () => {
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async () => {
+    const trimmed = message.trim();
+    if (!trimmed) return;
+
+    try {
+      await addDoc(collection(db, "chats"), {
+        text: trimmed,
+        timestamp: serverTimestamp(),
+      });
+      setMessage("");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   const data = [
     {
       icon: <ChartPie />,
       title: "Synthesize Data",
       desc: "Turn my meeting notes into 5 key bullet points for the team.",
     },
-
     {
       icon: <Lightbulb />,
       title: "Creative Brainstorm",
-      desc: "Generate three taglines for new subatainable fashion brand. ",
+      desc: "Generate three taglines for new sustainable fashion brand.",
     },
     {
       icon: <Flashlight />,
       title: "Check Facts",
-      desc: "Compare key differences between GDPR & CCCA. ",
+      desc: "Compare key differences between GDPR & CCPA.",
     },
   ];
 
@@ -44,6 +70,9 @@ export const Hero = () => {
           className="hero-input"
           placeholder="Ask me anything..."
           rows={2}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
         ></textarea>
 
         <div className="hero-tool">
@@ -51,7 +80,7 @@ export const Hero = () => {
             <button className="hero-purple">
               <span className="hero-icon">
                 <Atom />
-              </span>
+              </span>{" "}
               Deeper Research
             </button>
             <button className="hero-icon">
@@ -71,6 +100,14 @@ export const Hero = () => {
             </button>
             <button className="hero-circle">
               <Mic />
+            </button>
+            <button
+              className="hero-submit"
+              type="submit"
+              disabled={!message.trim()}
+              onClick={handleSubmit}
+            >
+              <Send size={16} />
             </button>
             <button className="hero-outline">📎 Attach file</button>
           </div>

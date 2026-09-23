@@ -1,0 +1,99 @@
+.chat-history {
+  &-container {
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 16px;
+
+    h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0px;
+    }
+  }
+
+  &-search {
+    display: flex;
+    align-items: center;
+    background-color: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    gap: 8px;
+
+    input {
+      font-size: 14px;
+      border: none;
+      background: none;
+      outline: none;
+      width: 120px;
+      color: #1e1b4b;
+
+      &::placeholder {
+        color: #a78bfa;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+
+    .empty-text {
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  &-item {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #6d28d9;
+
+      // Makes sure text is clearly visible against the pure purple background
+      .chat-text,
+      .chat-time {
+        color: #ffffff;
+      }
+    }
+
+    .chat-text {
+      font-size: 15px;
+      line-height: 22px;
+      margin: 0px;
+      color: #1e1b4b;
+    }
+
+    .chat-time {
+      font-size: 12px;
+      align-self: flex-end;
+      color: #6b7280;
+    }
+  }
+}
