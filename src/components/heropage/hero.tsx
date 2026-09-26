@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Herocard } from "../cards/herocard/herocard";
 import { db } from "../../firebase/firebase";
+import { HiSparkles } from "react-icons/hi2";
+import { auth } from "../../firebase/firebase";
 import "./hero.scss";
 import {
   Atom,
@@ -14,6 +16,7 @@ import {
   Send,
 } from "lucide-react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { onAuthStateChanged, type User } from "firebase/auth";
 
 export const Hero = () => {
   const [message, setMessage] = useState("");
@@ -40,6 +43,15 @@ export const Hero = () => {
     }
   };
 
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const data = [
     {
       icon: <ChartPie />,
@@ -61,56 +73,71 @@ export const Hero = () => {
   return (
     <div className="hero">
       <div className="hero-content">
-        <span className="hero-user">Hello, Jackson</span>
+        <div className="hero-glow-sphere"></div>
+        <span className="hero-user">
+          {" "}
+          Hello, {user?.displayName || user?.email?.split("@")[0] || "User"}
+        </span>
         <span className="hero-qn"> How Can i assist you today ?</span>
       </div>
 
-      <div className="hero-box">
-        <textarea
-          className="hero-input"
-          placeholder="Ask me anything..."
-          rows={2}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-        ></textarea>
+      <div className="hero-boxwrapper">
+        <div className="hero-box">
+          <textarea
+            className="hero-input"
+            placeholder="Ask me anything..."
+            rows={2}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+          ></textarea>
 
-        <div className="hero-tool">
-          <div className="hero-group">
-            <button className="hero-purple">
-              <span className="hero-icon">
-                <Atom />
-              </span>{" "}
-              Deeper Research
-            </button>
-            <button className="hero-icon">
-              <Images />
-            </button>
-            <button className="hero-icon">
-              <Lightbulb />
-            </button>
-          </div>
+          <div className="hero-tool">
+            <div className="hero-group">
+              <button className="hero-purple">
+                <span className="hero-icon">
+                  <Atom />
+                </span>
+                Deeper Research
+              </button>
+              <button className="hero-icon">
+                <Images />
+              </button>
+              <button className="hero-icon">
+                <Lightbulb />
+              </button>
+            </div>
 
-          <div className="hero-group">
-            <button className="hero-icon">
-              <Cpu />
-            </button>
-            <button className="hero-icon">
-              <Globe />
-            </button>
-            <button className="hero-circle">
-              <Mic />
-            </button>
-            <button
-              className="hero-submit"
-              type="submit"
-              disabled={!message.trim()}
-              onClick={handleSubmit}
-            >
-              <Send size={16} />
-            </button>
-            <button className="hero-outline">📎 Attach file</button>
+            <div className="hero-group">
+              <button className="hero-icon">
+                <Cpu />
+              </button>
+              <button className="hero-icon">
+                <Globe />
+              </button>
+              <button className="hero-circle">
+                <Mic />
+              </button>
+              <button
+                className="hero-submit"
+                type="submit"
+                disabled={!message.trim()}
+                onClick={handleSubmit}
+              >
+                <Send size={16} />
+              </button>
+            </div>
           </div>
+        </div>
+
+        <div className="hero-outer">
+          <div className="hero-prompt">
+            <span className="hero-sparkles">
+              <HiSparkles size={16} />
+            </span>
+            Saved Prompt
+          </div>
+          <button className="hero-outline">📎 Attach file</button>
         </div>
       </div>
 

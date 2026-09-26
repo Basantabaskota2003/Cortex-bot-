@@ -89,11 +89,6 @@
     transition:
       color 0.2s ease,
       background-color 0.2s ease;
-
-    &:hover {
-      color: rgb(150, 100, 240);
-      background-color: rgba(216, 195, 253, 0.2);
-    }
   }
 
   &-link {
@@ -110,6 +105,7 @@
     &:hover {
       border-color: rgb(216, 195, 253);
       background-color: rgba(216, 195, 253, 0.15);
+      transform: translatey(-1px);
     }
   }
 

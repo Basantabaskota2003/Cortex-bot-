@@ -1,99 +1,162 @@
+// मुख्य च्याट हिस्टोरी बाहिरी बक्स (Main Wrapper Container)
 .chat-history {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  // च्याट हिस्टोरीको भित्री मुख्य बक्स (.chat-history-container)
   &-container {
-    padding: 24px;
-    max-width: 400px;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-  }
+    height: 100%;
+    background-color: transparent;
+    padding: 0px;
+    box-sizing: border-box;
 
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 16px;
-
-    h4 {
-      font-size: 18px;
-      font-weight: 600;
-      margin: 0px;
-    }
-  }
-
-  &-search {
-    display: flex;
-    align-items: center;
-    background-color: #faf5ff;
-    border: 1px solid #e9d5ff;
-    border-radius: 8px;
-    padding: 6px 12px;
-    gap: 8px;
-
-    input {
-      font-size: 14px;
-      border: none;
-      background: none;
-      outline: none;
-      width: 120px;
-      color: #1e1b4b;
-
-      &::placeholder {
-        color: #a78bfa;
-      }
-    }
-
-    button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      padding: 0px;
+    // च्याट हिस्टोरीको माथिल्लो शीर्षक भाग (Header Area)
+    &-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-    }
-  }
+      justify-content: space-between;
+      margin-bottom: 6px;
 
-  &-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-height: 400px;
-    overflow-y: auto;
-
-    .empty-text {
-      font-size: 14px;
-      text-align: center;
-    }
-  }
-
-  &-item {
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    border-radius: 8px;
-
-    &:hover {
-      background-color: #6d28d9;
-
-      // Makes sure text is clearly visible against the pure purple background
-      .chat-text,
-      .chat-time {
-        color: #ffffff;
+      h4 {
+        font-size: 12px;
+        font-weight: 500;
+        color: rgb(222, 222, 222);
+        margin: 0;
       }
     }
 
-    .chat-text {
-      font-size: 15px;
-      line-height: 22px;
-      margin: 0px;
-      color: #1e1b4b;
+    // च्याट हिस्टोरी भित्रको सर्च बक्स (.chat-history-search)
+    &-search {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      input {
+        width: 100%;
+        padding: 4px 8px;
+        font-size: 12px;
+        background-color: #f3f4f6;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        color: #1f2937;
+        outline: none;
+        box-sizing: border-box;
+
+        &:focus {
+          border-color: #d1d5db;
+        }
+      }
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        padding: 2px 4px;
+      }
     }
 
-    .chat-time {
-      font-size: 12px;
-      align-self: flex-end;
-      color: #6b7280;
+    // च्याट लिस्टहरू बस्ने ठाउँ, जहाँ स्क्रोल बार आउँछ (.chat-history-list)
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      flex-grow: 1;
+
+      // स्क्रोल बारको चौडाइ/मोटोपन (Scrollbar width)
+      &::-webkit-scrollbar {
+        width: 4px;
+        color: #374151;
+      }
+      // स्क्रोल बारको तान्ने गोलो भाग (Scrollbar Thumb)
+      &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background: grey;
+      }
     }
   }
+
+  // प्रत्येक मितिको ग्रुपलाई घेर्ने बक्स (.chat-history-row-group)
+  &-row-group {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  // Today, Yesterday लेखिएको मितिको हेडिङ बार (.chat-history-date-separator)
+  &-date-separator {
+    display: flex;
+    align-items: center;
+    margin: 10px 0px 10px;
+
+    span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #9ca3af; // हल्का फुस्रो रङ
+      text-transform: uppercase; // सबै अक्षर ठूलो (TODAY, YESTERDAY) बनाउने
+      letter-spacing: 0.05em;
+      padding: 6px 8px;
+    }
+  }
+
+  // सूची भित्रको एउटा सिंगल म्यासेज आइटम को बक्स (.chat-history-item)
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 20px 20px;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    box-sizing: border-box;
+
+    // म्यासेज आइटम माथि माउस लैजाँदा (Hover State)
+    &:hover {
+      background-color: #f3f4f6; // हल्का खैरो ब्याकग्राउन्ड आउने
+
+      .chat-text {
+        color: #000000; // टेक्स्ट कालो र चम्किलो हुने
+      }
+
+      // डिलिट गर्ने ट्र्यास बटन देखा पर्ने
+      .chat-history-delete-btn {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+      }
+    }
+  }
+}
+
+// च्याट खाली हुँदा देखिने सन्देश (.empty-text)
+.empty-text {
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: center;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+// च्याट भित्र लेखिएको मुख्य टेक्स्ट (.chat-text)
+.chat-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+  line-height: 15px;
+  white-space: nowrap; // लामो टेक्स्टलाई तल झर्न नदिई एकै लाइनमा राख्ने
+  overflow: hidden; // बाहिर गएको टेक्स्ट लुकाउने
+  text-overflow: ellipsis; // लामो टेक्स्टको अन्तिममा '...' देखाउने
+  flex: 1;
 }

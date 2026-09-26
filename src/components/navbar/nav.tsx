@@ -31,7 +31,6 @@ export const Nav = () => {
           </span>
           <span className="nav-icon-btn">
             <span className="nav-export">
-              {" "}
               <ArrowDownToLine size={18} />
               Export Chat
             </span>

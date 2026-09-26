@@ -11,7 +11,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { Explore } from "./pages/explore/explore";
 import { Library } from "./pages/library/library";
 import { File } from "./pages/files/file";
-import { Chathistory } from "./components/sidebar/chat history/chathistory";
 
 export const App = () => {
   const { userLoggedIn } = useAuth();
@@ -46,8 +45,6 @@ export const App = () => {
             <Route path="/library" element={<Library />} />
 
             <Route path="/files" element={<File />} />
-
-            <Route path="/history" element={<Chathistory />} />
 
             <Route path="*" element={<Navigate to="/home" replace />} />
           </Routes>
