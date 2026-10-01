@@ -6,12 +6,16 @@
   padding: 12px 20px;
   border: none;
   background-color: #ffffff;
+  border: 12px solid rgb(245, 245, 245);
+  border-left: 0px;
+  border-bottom: 0px;
 
   &-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    padding-top: 20px;
   }
 
   &-left {

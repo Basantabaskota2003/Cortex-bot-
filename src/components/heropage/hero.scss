@@ -96,9 +96,14 @@
     color: #374151;
     padding: 4px 8px;
     background: transparent;
-
     &::placeholder {
       color: #b0a9bc;
+      font-size: 16px;
+      font-weight: 500;
+      font-family: "Poppins", sans-serif;
+      font-weight: 300;
+      color: #888888;
+      opacity: 1;
     }
   }
 
